@@ -18,6 +18,7 @@ class PhotoViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     var posts: [[String: Any]] = []
     var refreshControl: UIRefreshControl!
+   
     
     
     override func viewDidLoad() {
@@ -81,6 +82,16 @@ class PhotoViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 220
+    }
+    
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let vc = segue.destination as! PhotoDetailViewController
+        let cell = sender as! UITableViewCell
+        if let indexPath = tableView.indexPath(for: cell){
+            let post = posts[indexPath.row]
+            let PhotoDetailViewController = segue.destination as! PhotoDetailViewController
+            PhotoDetailViewController.post = post
+        }
     }
     
     override func didReceiveMemoryWarning() {
